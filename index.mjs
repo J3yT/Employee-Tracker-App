@@ -1,20 +1,34 @@
-import mysql from "mysql2"
-import inquirer from "inquirer"
+import mysql from "mysql2";
+import inquirer from "inquirer";
 
 const pool = mysql.createPool({
-      host: "localhost",
-      user: "root",
-      database: "employee_db",
-      waitForConnections: true,
-      password: "rootroot",
-      connectionLimit: 10,
-      maxIdle: 10,
-      idleTimeout: 60000,
-      queueLimit: 0
-    });
+  host: "localhost",
+  user: "root",
+  database: "employee_db",
+  waitForConnections: true,
+  password: "rootroot",
+  connectionLimit: 10,
+  maxIdle: 10,
+  idleTimeout: 60000,
+  queueLimit: 0,
+});
 
-    const promisePool = pool.promise();
+const promisePool = pool.promise();
 
-    const [rows,fields] = await promisePool.query("SELECT * from role");
+findEmployee();
 
-    console.log(rows)
+async function findEmployee() {
+  let { firstName } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "firstName",
+    },
+  ]);
+
+  const [rows, fields] = await promisePool.query(
+    "SELECT * from role where salary =?",
+    firstName
+  );
+
+  console.table(rows);
+}

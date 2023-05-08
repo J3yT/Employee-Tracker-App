@@ -5,7 +5,7 @@ VALUES ("construction worker", 20000, 3),
        ();
        
 INSERT INTO employee (first_name, last_name, manager_id)
-VALUES (),
+VALUES ("john", "joe", 3),
        (),
        (),
        ();
