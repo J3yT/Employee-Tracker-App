@@ -21,7 +21,13 @@ async function findEmployee() {
   let { firstName } = await inquirer.prompt([
     {
       type: "input",
+      message: "What is the name of the employee?",
       name: "firstName",
+    },
+    {
+      type: "input",
+      message: "What is the name of the department?",
+      name: "DepartmentName",
     },
   ]);
 
